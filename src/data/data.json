@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Javier",
+    "lastname": "Urbina",
+    "mail": "javier@mail.com",
+    "active": true,
+    "role": "user"
+  },
+  {
+    "id": 2,
+    "name": "Denisse",
+    "lastname": "Romero",
+    "mail": "denisse@mail.com",
+    "active": true,
+    "role": "user"
+  },
+  {
+    "id": 3,
+    "name": "Kiara",
+    "lastname": "Brito",
+    "mail": "kiara@mail.com",
+    "active": true,
+    "role": "user"
+  },
+  {
+    "id": 4,
+    "name": "Millaray",
+    "lastname": "Soto",
+    "mail": "millaray@mail.com",
+    "active": false,
+    "role": "user"
+  },
+  {
+    "id": 5,
+    "name": "César",
+    "lastname": "Arnáes",
+    "mail": "cesar@mail.com",
+    "active": true,
+    "role": "admin"
+  }
+]

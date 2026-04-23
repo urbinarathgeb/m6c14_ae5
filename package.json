@@ -1,0 +1,18 @@
+{
+  "name": "m6c14_ae5",
+  "version": "1.0.0",
+  "description": "Proyecto correspondiente a la actividad AE5 de la clase 14 del módulo 6 del bootcamp Desarrollo Web Full Stack JavaScript de Talento digital",
+  "license": "ISC",
+  "author": "Javier Urbina",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "express": "^5.2.1"
+  }
+}
