@@ -32,5 +32,23 @@ La API permite gestionar usuarios con persistencia en un archivo JSON. Todas las
 | **PUT** | `/users/:id` | Actualiza los datos de un usuario existente por su ID. | `{"name", "lastname", "mail", "active", "role"}` |
 | **DELETE** | `/users/:id` | Elimina un usuario del sistema por su ID. | No requiere |
 
+### Validaciones Implementadas
+
+Se han incorporado middlewares de validación para asegurar la integridad de los datos:
+
+- **ID de Usuario**: Debe ser un valor numérico entero en las rutas que lo requieren (`GET/:id`, `PUT/:id`, `DELETE/:id`).
+- **Campos Obligatorios**: Las peticiones `POST` y `PUT` deben incluir obligatoriamente: `name`, `lastname`, `mail`, `active` y `role`.
+- **Formato de Email**: Se valida mediante expresión regular que el campo `mail` tenga un formato válido.
+- **Unicidad de Email**: No se permite registrar o actualizar un usuario con un correo que ya pertenezca a otra cuenta.
+- **Tipo de Dato 'active'**: El campo `active` debe ser estrictamente un valor booleano (`true` o `false`).
+
+### Códigos de Respuesta
+
+- **200 OK**: Operación exitosa.
+- **201 Created**: Usuario creado exitosamente.
+- **400 Bad Request**: Error de validación (campos faltantes, formato inválido, etc.).
+- **404 Not Found**: Recurso no encontrado (usuario inexistente).
+- **500 Internal Server Error**: Error inesperado en el servidor.
+
 ### Pruebas
 Se han incluido archivos con extensión `.http` y `.rest` en la carpeta `src/requests/` que pueden ser utilizados directamente en editores compatibles para probar los endpoints.

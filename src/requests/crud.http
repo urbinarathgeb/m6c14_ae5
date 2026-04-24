@@ -13,6 +13,11 @@ GET http://localhost:3000/users/1
 
 ###
 
+# obtener usuario con ID inválido
+GET http://localhost:3000/users/abc
+
+###
+
 # crear usuario
 POST http://localhost:3000/users
 Content-Type: application/json
@@ -39,6 +44,33 @@ Content-Type: application/json
   "role": "admin"
 }
 
+###
+
+# crear usuario con email inválido
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Javier",
+  "lastname": "Urbina",
+  "mail": "correo-no-valido",
+  "active": true,
+  "role": "user"
+}
+
+###
+
+# crear usuario con campo active inválido (no booleano)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Javier",
+  "lastname": "Urbina",
+  "mail": "test@mail.com",
+  "active": "no-soy-booleano",
+  "role": "user"
+}
 
 ###
 
@@ -60,13 +92,13 @@ DELETE http://localhost:3000/users/6
 ###
 
 # actualizar usuario
-PUT http://localhost:3000/users/7
+PUT http://localhost:3000/users/1
 Content-Type: application/json
 
 {
-  "name": "Edu" ,
-  "lastname": "Villegas",
-  "mail": "edu@mail.com",
+  "name": "Javier" ,
+  "lastname": "Urbina",
+  "mail": "javier@mail.com",
   "active": true,
   "role": "admin"
 }
