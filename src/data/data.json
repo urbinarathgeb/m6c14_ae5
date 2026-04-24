@@ -38,21 +38,5 @@
     "mail": "cesar@mail.com",
     "active": true,
     "role": "admin"
-  },
-  {
-    "id": 7,
-    "name": "Eduardo",
-    "lastname": "Villegas",
-    "mail": "eduardo@mail.com",
-    "active": true,
-    "role": "admin"
-  },
-  {
-    "id": 8,
-    "name": "Edu",
-    "lastname": "Venegas",
-    "mail": "ev@mail.com",
-    "active": false,
-    "role": "user"
   }
 ]

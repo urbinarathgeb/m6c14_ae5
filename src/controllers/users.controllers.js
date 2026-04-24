@@ -1,108 +1,119 @@
 import * as service from '../services/services.js';
 
 export const getUsers = (req, res) => {
-	const users = service.getData();
+	try {
+		const users = service.getData();
 
-	if (!users || users.length === 0) return res.status(404).json({message: 'No hay usuarios'});
+		if (!users || users.length === 0) return res.status(404).json({message: 'No hay usuarios'});
 
-	res.status(200).json({
-		message: 'Usuarios encontrados',
-		total: users.length,
-		data: users
-	})
+		res.status(200).json({
+			message: 'Usuarios encontrados',
+			total: users.length,
+			data: users
+		})
+	} catch (error) {
+		res.status(500).json({message: 'Error al obtener usuarios', error: error.message});
+	}
 };
 
 export const getUserById = (req, res) => {
-	const {id} = req.params;
-	const users = service.getData();
-	const user = users.find(user => user.id === parseInt(id));
+	try {
+		const {id} = req.params;
 
-	if (!user) return res.status(404).json({message: 'Usuario no encontrado'});
+		const users = service.getData();
+		const user = users.find(user => user.id === parseInt(id));
 
-	const {name, lastname} = user;
+		if (!user) return res.status(404).json({message: 'Usuario no encontrado'});
 
-	res.status(200).json({
-		message: `Usuario encontrado: ${name} ${lastname}`,
-		id: user.id,
-		data: user
-	});
+		const {name, lastname} = user;
+
+		res.status(200).json({
+			message: `Usuario encontrado: ${name} ${lastname}`,
+			id: user.id,
+			data: user
+		});
+	} catch (error) {
+		res.status(500).json({message: 'Error al obtener el usuario', error: error.message});
+	}
 }
 
 export const createUser = (req, res) => {
-	const user = req.body;
-	console.log(user)
-	const users = service.getData();
-	const newId = users.length > 0 ? users[users.length - 1].id + 1 : 1;
-	const requiredFields = ['name', 'lastname', 'mail', 'active', 'role'];
+	try {
+		const user = req.body;
+		const users = service.getData();
 
-	const missingFields = requiredFields.filter(field => {
-		return user[field] === undefined || user[field] === null || user[field] === '';
-	});
+		const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+		const {name, lastname} = user;
 
-	if (missingFields.length > 0) {
-		return res.status(400).json({
-			message: 'Faltan campos obligatorios',
-			missing: missingFields,
-			error_details: `Los siguientes campos son requeridos: '${missingFields.join(' | ')}'`
-		});
+		const newUser = {
+			id: newId,
+			...user
+		};
+
+		users.push(newUser);
+		service.setData(users);
+
+		res.status(201).json({
+			message: `Usuario creado: ${name} ${lastname}`,
+			id: newUser.id,
+			data: newUser
+		})
+	} catch (error) {
+		res.status(500).json({message: 'Error al crear el usuario', error: error.message});
 	}
-
-	const {name, lastname} = user;
-
-	const newUser = {
-		id: newId,
-		...user
-	};
-
-	users.push(newUser);
-	service.setData(users);
-
-	res.status(201).json({
-		message: `Usuario creado: ${name} ${lastname}`,
-		id: newUser.id,
-		data: newUser
-	})
 }
 
 export const deleteUserById = (req, res) => {
-	const {id} = req.params;
-	const users = service.getData();
-	const userIndex = users.findIndex(user => user.id === parseInt(id));
-	const userToDelete = users[userIndex];
+	try {
+		const {id} = req.params;
 
-	if (userIndex === -1) return res.status(404).json({message: 'Usuario no encontrado'});
+		const users = service.getData();
+		const userIndex = users.findIndex(user => user.id === parseInt(id));
 
-	const {name, lastname} = userToDelete;
-	users.splice(userIndex, 1);
-	service.setData(users);
+		if (userIndex === -1) return res.status(404).json({message: 'Usuario no encontrado'});
 
-	res.status(200).json({
-		message: `Usuario eliminado: ${name} ${lastname}`,
-		id: userToDelete.id,
-		data: userToDelete
-	});
+		const userToDelete = users[userIndex];
+		const {name, lastname} = userToDelete;
+		users.splice(userIndex, 1);
+		service.setData(users);
+
+		res.status(200).json({
+			message: `Usuario eliminado: ${name} ${lastname}`,
+			id: userToDelete.id,
+			data: userToDelete
+		});
+	} catch (error) {
+		res.status(500).json({message: 'Error al eliminar el usuario', error: error.message});
+	}
 };
 
 export const updateUserById = (req, res) => {
-	const {id} = req.params;
-	const user = req.body;
+	try {
+		const {id} = req.params;
+		const userUpdates = req.body;
 
-	const users = service.getData();
-	const userIndex = users.findIndex(user => user.id === parseInt(id));
-	const userToUpdate = users[userIndex];
+		const users = service.getData();
+		const userIndex = users.findIndex(user => user.id === parseInt(id));
 
-	if (userIndex === -1) return res.status(404).json({message: 'Usuario no encontrado'});
+		if (userIndex === -1) return res.status(404).json({message: 'Usuario no encontrado'});
 
-	const {name, lastname} = user;
-	users[userIndex] = {
-		id: parseInt(id),
-		...user
-	};
-	service.setData(users);
+		const userToUpdate = users[userIndex];
 
-	res.status(200).json({
-		message: `Usuario actualizado: ${name} ${lastname}`,
-		'old-data': userToUpdate,
-		'new-data': users[userIndex]
-	});
+		const updatedUser = {
+			...userToUpdate,
+			...userUpdates,
+			id: parseInt(id) // Asegurar que el ID no cambie
+		};
+
+		users[userIndex] = updatedUser;
+		service.setData(users);
+
+		res.status(200).json({
+			message: `Usuario actualizado: ${updatedUser.name} ${updatedUser.lastname}`,
+			'old-data': userToUpdate,
+			'new-data': updatedUser
+		});
+	} catch (error) {
+		res.status(500).json({message: 'Error al actualizar el usuario', error: error.message});
+	}
 }

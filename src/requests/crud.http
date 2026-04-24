@@ -1,3 +1,8 @@
+# root
+GET http://localhost:3000/
+
+###
+
 # obtener todos los usuarios
 GET http://localhost:3000/users
 
@@ -16,8 +21,8 @@ Content-Type: application/json
   "name": "Eduardo" ,
   "lastname": "Villegas",
   "mail": "eduardo@mail.com",
-  "active": true,
-  "role": "admin"
+  "active": false,
+  "role": "user"
 }
 
 
@@ -55,13 +60,13 @@ DELETE http://localhost:3000/users/6
 ###
 
 # actualizar usuario
-PUT http://localhost:3000/users/8
+PUT http://localhost:3000/users/7
 Content-Type: application/json
 
 {
   "name": "Edu" ,
-  "lastname": "Venegas",
-  "mail": "ev@mail.com",
-  "active": false,
-  "role": "user"
+  "lastname": "Villegas",
+  "mail": "edu@mail.com",
+  "active": true,
+  "role": "admin"
 }
