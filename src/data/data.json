@@ -40,9 +40,17 @@
     "role": "admin"
   },
   {
-    "id": 6,
+    "id": 7,
     "name": "Eduardo",
     "lastname": "Villegas",
+    "mail": "eduardo@mail.com",
+    "active": true,
+    "role": "admin"
+  },
+  {
+    "id": 8,
+    "name": "Eduardo",
+    "lastname": "V",
     "mail": "eduardo@mail.com",
     "active": true,
     "role": "admin"

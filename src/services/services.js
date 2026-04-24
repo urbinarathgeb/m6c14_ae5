@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
+import chalk from 'chalk';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,4 +15,13 @@ export const getData = () => {
 
 export const setData = (data) => {
 	fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+}
+
+export const deleteData = () => {
+	fs.unlink(dataPath, (err) => {
+		if (err) {
+			return console.error(chalk.bgRed('Ha ocurrido un error'), chalk.red(err));
+		}
+		console.log(chalk.green('Data eliminada correctamente.'));
+	})
 }
