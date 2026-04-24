@@ -8,6 +8,6 @@ router.get('/', usersController.getUsers)
 router.get('/:id', usersController.getUserById)
 router.post('/', usersController.createUser)
 router.delete('/:id', usersController.deleteUserById)
-
+router.put('/:id', usersController.updateUserById)
 
 export default router;

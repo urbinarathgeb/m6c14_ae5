@@ -49,10 +49,10 @@
   },
   {
     "id": 8,
-    "name": "Eduardo",
-    "lastname": "V",
-    "mail": "eduardo@mail.com",
-    "active": true,
-    "role": "admin"
+    "name": "Edu",
+    "lastname": "Venegas",
+    "mail": "ev@mail.com",
+    "active": false,
+    "role": "user"
   }
 ]

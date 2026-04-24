@@ -3,12 +3,12 @@ GET http://localhost:3000/users
 
 ###
 
-#obtener usuario por id
+# obtener usuario por id
 GET http://localhost:3000/users/1
 
 ###
 
-#crear usuario
+# crear usuario
 POST http://localhost:3000/users
 Content-Type: application/json
 
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 ###
 
-#crear usuario con un dato faltante
+# crear usuario con un dato faltante
 POST http://localhost:3000/users
 Content-Type: application/json
 
@@ -37,7 +37,7 @@ Content-Type: application/json
 
 ###
 
-#crear usuario con 2 datos faltantes
+# crear usuario con 2 datos faltantes
 POST http://localhost:3000/users
 Content-Type: application/json
 
@@ -49,5 +49,19 @@ Content-Type: application/json
 
 ###
 
-#elimninar usuario por id
+# elimninar usuario por id
 DELETE http://localhost:3000/users/6
+
+###
+
+# actualizar usuario
+PUT http://localhost:3000/users/8
+Content-Type: application/json
+
+{
+  "name": "Edu" ,
+  "lastname": "Venegas",
+  "mail": "ev@mail.com",
+  "active": false,
+  "role": "user"
+}

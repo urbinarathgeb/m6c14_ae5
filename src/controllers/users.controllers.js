@@ -68,17 +68,41 @@ export const deleteUserById = (req, res) => {
 	const {id} = req.params;
 	const users = service.getData();
 	const userIndex = users.findIndex(user => user.id === parseInt(id));
-	const user = users[userIndex];
+	const userToDelete = users[userIndex];
 
 	if (userIndex === -1) return res.status(404).json({message: 'Usuario no encontrado'});
 
-	const {name, lastname} = user;
+	const {name, lastname} = userToDelete;
 	users.splice(userIndex, 1);
 	service.setData(users);
 
 	res.status(200).json({
 		message: `Usuario eliminado: ${name} ${lastname}`,
-		id: user.id,
-		data: user
+		id: userToDelete.id,
+		data: userToDelete
 	});
 };
+
+export const updateUserById = (req, res) => {
+	const {id} = req.params;
+	const user = req.body;
+
+	const users = service.getData();
+	const userIndex = users.findIndex(user => user.id === parseInt(id));
+	const userToUpdate = users[userIndex];
+
+	if (userIndex === -1) return res.status(404).json({message: 'Usuario no encontrado'});
+
+	const {name, lastname} = user;
+	users[userIndex] = {
+		id: parseInt(id),
+		...user
+	};
+	service.setData(users);
+
+	res.status(200).json({
+		message: `Usuario actualizado: ${name} ${lastname}`,
+		'old-data': userToUpdate,
+		'new-data': users[userIndex]
+	});
+}
