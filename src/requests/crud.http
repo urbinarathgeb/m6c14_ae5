@@ -1,1 +1,7 @@
+# obtener todos los usuarios
 GET http://localhost:3000/users
+
+###
+
+#obtener usuario por id
+GET http://localhost:3000/users/1
