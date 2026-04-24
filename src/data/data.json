@@ -38,5 +38,13 @@
     "mail": "cesar@mail.com",
     "active": true,
     "role": "admin"
+  },
+  {
+    "id": 6,
+    "name": "Eduardo",
+    "lastname": "Villegas",
+    "mail": "eduardo@mail.com",
+    "active": true,
+    "role": "admin"
   }
 ]
