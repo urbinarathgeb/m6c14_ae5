@@ -102,7 +102,7 @@ export const updateUserById = (req, res) => {
 		const updatedUser = {
 			...userToUpdate,
 			...userUpdates,
-			id: parseInt(id) // Asegurar que el ID no cambie
+			id: parseInt(id)
 		};
 
 		users[userIndex] = updatedUser;
